@@ -2,14 +2,58 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Variables!</title>
-  <link rel="stylesheet" href="../base.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Variables!</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  body {
+    padding: 30px;
+    margin: 0 auto;
+  }
+</style>
 </head>
 
 <body>
+  <h1>declaring a variable with var, let and const</h1>
+  <h2>var, let, and const are three different types of variables</h2>
+  <p>var and let can be updated</p>
+  <h3>scoping</h3>
+  <p>var variables are <b>function</b> scoped variables</p>
+  <p>let and const are <b>block</b> scope variables</p>
+  <p>const = constant</p>
+  <script> 
+  'use strict';
+    //function scoped
+    var first = 'wes'; 
+    //blocked scoped {}
+    let age = 300;  //variable declaration statement
+    const cool = true;
 
+    //good practices
+    // const by default
+    // let when needed, easily able to change const to let
+    
+    //good conventions for variables
+    //variables shouldn't begin with a capital
+    //must start with an A-Z letter
+    //can start with an underscore _(Lodash) or dollar sign $(JQuery)
+
+    //CamelCase: every word except for the first one will be uppercase (default)
+    const iLovePizza = true;
+
+    //Upper CamelCase (for classes)
+    const ILoveToEatHotDogs = false;
+
+    //Snake Case!!! (PHP world)
+    const this_is_snake_case = 'cool';
+
+    first = 'westerhoff';
+    console.log(first); //function call statement
+
+    //dog = 'snickers';
+
+  </script>
 </body>
 
 </html>
