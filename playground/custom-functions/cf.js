@@ -1,9 +1,8 @@
 // Function Definition
-function calculateBill(billAmount, taxRate) {
-  console.log(billAmount, taxRate);
+function calculateBill(billAmount, taxRate = 0.13, tipRate = 0.15) {
   // this is the function body
   console.log('Running Calculate Bill!');
-  const total = billAmount * (1 + taxRate);
+  const total = billAmount + billAmount * taxRate + billAmount * tipRate;
   return total; // temporary variable  only available in the block of the function when it's run
 }
 
@@ -28,5 +27,20 @@ function sayHiTo(firstName) {
 const kait = 100;
 const myTotal3 = calculateBill(kait + 50, 0.15);
 
-// Pass Functions as arguements
-// 14:20 ep 14
+// Pass Functions as arguments
+
+// Pass a value into a function
+// OK to use parameters multiple times, because they are scoped within functions
+
+function doctorize(name) {
+  return `Dr. ${name}`;
+}
+
+function yell(name = '') {
+  return `HEY ${name.toUpperCase()}`;
+}
+
+// yell(doctorize('wes'));
+// functions will only fall back into their defaults when it is undefined/nothing is passed/when a variable isn't set to anything it is the value of undefined
+const myBill4 = calculateBill(100, undefined, 0.2);
+console.log(myBill4);

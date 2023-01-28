@@ -9,7 +9,48 @@
 </head>
 
 <body>
+  <script>
+    /* Closure is the ability to access a parent level scope from a child scope even after a parent function has been terminated(called/closed) */
 
+    /*   function outer() {
+          const outerVar = 'Hey I am the outer Var!';
+          function inner() {
+            const innerVar = 'Hey I am the inner Var!';
+            console.log(innerVar);
+            console.log(outerVar);
+          }
+          return inner;
+        }
+    
+        const innerFn = outer();
+        innerFn(); */
+
+    /*  1. Closure creating a function */
+    function createGreeting(greeting = '') {
+      const myGreet = greeting.toUpperCase();
+      return function (name) {
+        return `${myGreet} ${name}`;
+      };
+    }
+
+    const sayHello = createGreeting('hello');
+    const sayHey = createGreeting('hey');
+    console.log(sayHello('wes'));
+    console.log(sayHey('wes'));
+
+    /*  2. How to use closures to create private variables  */
+
+    function createGame(gameName) {
+      let score = 0;
+      return function win() {
+        score++;
+        return `Your name ${gameName} score is ${score}`;
+      };
+    }
+
+    const hockeyGame = createGame('Hockey');
+    const soccerGame = createGame('Soccer');
+  </script>
 </body>
 
 </html>
