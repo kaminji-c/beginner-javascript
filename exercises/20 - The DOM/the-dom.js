@@ -60,3 +60,22 @@ function toggleRound(){
 }
 pic.addEventListener('click', toggleRound);
 //pic.classList.contains('round'); .contains good for testing 
+
+/*Attributes: classes. source, alt */
+/* Custom attributes and Data attributes */
+pic.alt = 'cute pup'; //setter
+pic.width = 200;
+console.log(pic.alt); //getters
+//console.log(pic.naturalWidth);
+pic.setAttribute('alt', 'Really cute pup'); //will also work on things that are nonstandard 
+console.log(pic.getAttribute('alt'));
+/*  pic.addEventListener('load', function(){
+  console.log(pic.naturalWidth); //getter
+})  */
+
+const custom = document.querySelector('.custom');
+console.log(custom.dataset);
+
+custom.addEventListener('click', function(){
+  alert(`Welcome ${custom.dataset.name} ${custom.dataset.last}`);
+})
