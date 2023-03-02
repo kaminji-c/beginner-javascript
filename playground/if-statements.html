@@ -9,10 +9,201 @@
 </head>
 
 <body>
+
+
+  <h2>Truthy Values</h2>
+  <ul>
+    <li>
+      <p>* 1 - equates to true</p>
+    </li>
+    <li>
+      <p>* -10 -all numbers except 0 will be truthy</p>
+    </li>
+    <li>
+      <p>* full string</p>
+    </li>
+    <li>
+      <p> * a string of "0" - any value of a string will be truthy except an empty string</p>
+    </li>
+    <li>
+      <p> * empty array
+      </p>
+    </li>
+    <li>
+      <p> * empty object
+      </p>
+    </li>
+  </ul>
+  <h2>Falsy Values</h2>
+  <ul>
+    <li>
+      <p> * 0 - equates to false</p>
+    </li>
+    <li>
+      <p> * undefined variable</p>
+    </li>
+    <li>
+      <p> * Variable set to null</p>
+    </li>
+    <li>
+      <p> * a variable set to `"hello" - 10` NaN (not a number)</p>
+    </li>
+    <li>
+      <p> * empty string</p>
+    </li>
+  </ul>
+
   <script>
-    if (10 > 2) {
-      console.log('Yep');
+    const age = 100;
+    if (age > 70) {
+      console.log('In your seventies');
+    } else if (age > 60) {
+      console.log('In your sixties');
+    } else if (age > 50) {
+      console.log('In your fifties');
+    } else {
+      console.log('Nothing was true');
     }
+    //ELSE condition doesn't have (), at the end of the line/ if nothing was true then run me. Similar to default in a switch statement
+
+    //IF STATEMENTS INSIDE OF A FUNCTION
+    function slugify(sentence, lowercase) {
+      let slug = sentence.replace(/\s/g, '-');
+      if (lowercase) {
+        return slug.toLowerCase();
+      }
+      return slug;
+    }
+    /*   function slugify(sentence, lowercase) {
+    if (lowercase) {
+      return sentence.replace(/\s/g, '-');
+    }
+    //else
+    return sentence.replace(/\s/g, '-');
+    }*/
+    //RETURN means to return a value from a function and stop that function from running
+    //Instead of having an if/else statement, the ELSE is sort of assumed by putting it down there
+
+
+    /*  OPERATORS
+    Almost always use TRIPLE EQUALS ===
+    It exist because of null and undefined 
+    
+    ! -> Programmers call this BANG
+    !== BANG does not equal
+
+    > <, Greater than and Less than signs only work with numbers
+    */
+
+    const name = 'wes';
+    const last = 'bos'
+
+    if (name === 'scott' || (name === 'wes' && last === 'bos')) {
+      console.log('Cool name');
+    }
+    //sometimes programmers store a value inside a inside variable 
+    const isAwesomeName = 'awesome'.includes(name);
+    if (isAwesomeName) {
+      console.log('SUPER COOL AWESOME NAME');
+    }
+    // .includes is a method that returns true/false, you can use it directly inside if statements
+
+    //Make a function that returns true or false
+    function nameIsAwesome(name) {
+      return 'awesome'.includes(name);
+    }
+    if (nameIsAwesome('wes')) {
+      console.log('COOL NAME WES');
+    }
+    //KEY TAKE AWAY ON IF STATEMENTS: They will take in a number of different values and it will try to coerce them and will try to turn them into a BOOLEAN of true or false. So values that are truthy/falsy will also work
+    const dog = '';
+
+    if (dog) {
+      console.log('you have a dog');
+    } else {
+      console.log('you don\'t have a dog');
+    }
+
+    let score = [];
+    if (score) {
+      console.log('there is a score already');
+    } else {
+      console.log('No score yet');
+    }
+
+
+    const values = [[], {}, -10, 1, 0, '', 'full string', ' ', undefined, NaN, null, '0️⃣', '💩'];
+
+    console.group('truthy or falsy values');
+    values.forEach(value => {
+      if (value) {
+        console.log(value, 'is truthy');
+      } else {
+        console.log(value, 'is falsy');
+      }
+    });
+    console.groupEnd();
+
+    console.clear();
+
+    const isCool = true;
+    //A BANG in front of a BOOLEAN will always flip it to the other sid eof the boolean
+    //BANG operator also coerce, using !! (with a double bang, will make it a REAL BOOLEAN)
+    if (!isCool) {
+      console.log('You are not cool');
+    }
+
+    const count = 2;
+    /*     let word;
+    if (count === 1) {
+      word = 'item';
+    } else {
+      word = 'items';
+    } */
+
+    //TERNARY, shorthand if/else statement
+    //1. Condition
+    //2. What to do if true
+    //3. What to do if false
+    /*const word = count === 1 ? 'item' : 'items';
+     const sentence = `You have ${count} ${word} in your cart`; */
+    const sentence = `You have ${count} item${count === 1 ? '' : 's'} in your cart`;
+    console.log(sentence);
+
+    function showAdminBar() {
+      console.log('Showing admin bar');
+    }
+    //Can also use these for running functions!!
+    const isAdmin = true;
+    //isAdmin ? showAdminBar() : null; //to return nothing, use null OR the AND AND TRICK
+    isAdmin && showAdminBar();
+
+    //AND AND TRICK
+    //Any point it checks false, the if statements will return the condition and go to the else -> also called SHORT CIRCUITING 
+    function check1() {
+      console.log('Running check 1');
+      return true;
+    }
+    function check2() {
+      console.log('Running check 2');
+      return false;
+    }
+    function check3() {
+      console.log('Running check 3');
+      return true;
+    }
+    if (check1() && check2() && check3()) {
+      console.log('All checks passed');
+    } else {
+      console.log('Some checks failed');
+    }
+
+    //BLOCKLESS IF STATEMENTS: if you put a if statement all on one line it doesn't need brackets, as soon as it goes on another line it breaks
+    if (isAdmin) showAdminBar();
+    //nice to have, quick one liner
+
+
+
   </script>
 </body>
 

@@ -9,8 +9,64 @@
 </head>
 
 <body>
-  <script>
+  <p>Map is very similar to an Object. It is simply used to store data
+  </p>
+  <p>Benefit of the map:
+    1. Map KEYS and values can be any type. In an Object only the value of the KEY can be any type.
+  </p>
+  <p>Sometimes in JS we have these things called DICTIONARIES which is a way to store additional meta data</p>
+  <p>DOWNSIDES of a MAP:
+    1. No literal notation
+    2. You cannot store a function in it like an object can(methods)
+    3.JSON does not handle maps
+  </p>
+  <ul class="prizes"></ul>
 
+  <script>
+    const person1 = {
+      name: 'wes',
+      age: 200,
+    };
+    //You can use the reference of that object as a key in your map to store additional info inside of your map
+
+    //DOWNSIDE OF MAP, There is not LITERAL, so you have to create a map this way, unlike an object: const object = {};, or an array: const array = [];
+    const myMap = new Map();
+
+    //.set() - add items to a map
+    //entries are actual values in a map
+    myMap.set('name', 'cam');
+    myMap.set(100, 'This is a number');
+    myMap.set(person1, 'Really Cool');
+    myMap.age = 100; //if we use the object notation, it is not added to the same spot. It becomes a property of this map, not an actual entry 
+    console.log(myMap);
+    //console.log(myMap.get(person1));
+    const score = 100;
+    const prizes = new Map();
+    //In an object you would have to use a string to look up the score
+    prizes.set(100, 'Bear');
+    prizes.set(200, 'Duck');
+    prizes.set(300, 'Car');
+    console.log(`You win a ${prizes.get(score)}`);
+    //select that ul
+    const ul = document.querySelector('.prizes');
+    //Only gives values
+    /*    prizes.forEach(entry => {
+         console.log(entry);
+       }); */
+    //For both values we can use the FOR OF LOOP
+    for (const [points, prize] of prizes) {
+      //console.log(points, prize);
+      const li = `<li>${points} - ${prize}</li>`;
+      ul.insertAdjacentHTML('beforeend', li);
+    }
+    //.has()
+    //.delete()
+    //myMap.delete('name');
+
+    //.size, similar to .length in objects
+    //console.log(myMap.size);
+    //Key takeaways: ORDER is guaranteed in a map. The order you put into a map is the order it will stay
+//110
   </script>
 </body>
 

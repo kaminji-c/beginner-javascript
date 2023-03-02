@@ -11,7 +11,113 @@
 </head>
 
 <body>
+  <h1>Arrays</h1>
+  <p>An array is used for holding a list of items where the ORDER matters. Each thing inside of an array is called an
+    ITEM and its POSITION in an array is called an INDEX</p>
+  <p>NUMBERS inside of an array is called a LENGTH</p>
+  <p>EACH item inside of an array can be ANY TYPE</p>
+  <p>Similar to an object except there are NO KEYS</p>
+  <p>The KEYS will be INDEXES so 0, 1, 2, 3, 4, 5</p>
+  <p>Array is not its own TYPE, at the end of the day its an OBJECT</p>
+  <p>Best way to check if something is an array is using the Array.isArray (static) method: Array.isArray();
+  </p>
+  <p>Arrays are zero based. Index counting starts at 0</p>
+  <hr>
+  <h2>Mutable Methods</h2>
+  <p>Perform mutations. When the original version of something is changed it is considered a mutation</p>
+  <h2>Immutable</h2>
+  <p>The methods do not change the original thing but they simply return a new array</p>
+  <script>
+    //array literal
+    const names = ['wes', 'kait', 'snickers',];
+    //console.log(Array.isArray(names));
+    //access things from an array using their index
+    console.log(names[0]);
+    //to see how many items are in an array, use .length | NOT ZERO BASED
+    console.log(names.length);
+    console.log(names[names.length - 1]);
+    //PUSH METHOD - adding items to the end
+    names.push('lux');
+    //UNSHIFT METHOD - adding items to the start of an array
+    names.unshift('poppy');
 
+    console.log(names);
+    //adding an item to an array but keeping the original intact
+    const names2 = [...names, 'lux']; //common things to do in react, because you don't to push items into state, you want to take a copy and update state
+    const names3 = ['poppy2', ...names];
+    console.log(names3);
+
+    //adding items to the MIDDLE using the SPREAD methods
+    const bikes = ['bianchi', 'miele', 'panasonic', 'miyata'];
+    const newBikes = [
+      ...bikes.slice(0, 2),
+      'benotto',
+      ...bikes.slice(2)
+    ];
+    console.log(newBikes);
+
+    const newBikes2 = [
+      ...newBikes.slice(0, 3),
+      ...newBikes.slice(4)
+    ];
+    console.log(newBikes2);
+
+    //FIND INDEX
+    const comments = [
+      { text: 'Cool Beans', id: 123 },
+      { text: 'Love This', id: 133 },
+      { text: 'Neato', id: 233 },
+      { text: 'good bikes', id: 333 },
+      { text: 'so good', id: 433 },
+    ];
+    function deleteComment(id, comments) {
+      //first find the index of the item in the array
+      const commentIndex = comments.findIndex(comment => comment.id === id);
+      //second make a new array without that item in it
+      return [
+        ...comments.slice(0, commentIndex),
+        ...comments.slice(commentIndex + 1),
+      ];
+    }
+    //third return our new array
+    const kaitIndex = names.findIndex(name => name === 'kait');
+    const newNamesWithoutKait = [
+      //get everything up to kait index
+      ...names.slice(0, kaitIndex),
+      //everything after kait index
+      ...name.slice(kaitIndex + 1)
+    ];
+    /* const newName999 = newNamesWithoutKait.flat();
+    console.log(newName999); */
+    console.log(newNamesWithoutKait);
+   /*  console.log(kaitIndex); //returns the index
+                    console.log(names[kaitIndex]); //returns value
+                 */
+
+
+    /*  //MUTATION METHOD - THEY DO CHANGE THE ORIGINAL DATA
+     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+     //numbers.reverse(); //original data has changed from what it used to be
+     console.log(numbers);
+     //anytime you want to use a mutation method and NOT mutate the original array
+     //we need to take a copy of the array
+     const numbersReversed = [...numbers].reverse(); //calling the method immediately after the copy is created
+     console.log(numbersReversed);
+
+     //IMMUTABLE - THEY DO NOT CHANGE THE ORIGINAL DATA
+     const pizzaSlice = numbers.slice(2, 4);
+     console.log(pizzaSlice);
+     console.log(numbers); */
+
+    //SLICE and SPLICE - grabbing subsets of an array(MOST LIKELY WILL USE SLICE, REMEMBER IT BY THINKING YOU PROBABLY WANT A SLICE OF PIZZA)
+    //SLICE is IMMUTABLE - shallow copy, original is not modified, has a start and end
+    //SPLICE is MUTABLE - it will take the item out of the actual array, has a start, and then a number of items you want to delete
+    /*  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+     console.log(numbers);
+     numbers.splice(3, 2);
+     console.log(numbers); */
+     //17:18
+  </script>
 </body>
 
 </html>

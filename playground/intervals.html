@@ -9,7 +9,61 @@
 </head>
 
 <body>
+  <p> Timeout: If you want something to run after 5 seconds</p>
+  <p>Interval: If you want something to run every 5 seconds</p>
+  <script>
+    //similar to addEventListener you can pass it an anonymous function or write a function outside of it
 
+    /*   function buzzer() {
+        console.log('EEEENNGGGGG');
+      } */
+    //Anon function
+    /*    setTimeout(function () {
+         console.log('done!');
+       }, 500); */
+    //Callback function
+    /* console.log('starting');
+    setTimeout(buzzer, 500);
+    console.log('finishing'); */
+    //ASYNCHRONOUS nature of JS, JS keeps running
+
+    //setInterval(buzzer, 2000); //this method does not start immediately, but you can create a function below to do that
+
+    function setImmediateInterval(funcToRun, ms) {
+      //right away call that function
+      funcToRun(); //taking the argument funcToRun and call it
+      //run a regular interval
+      return setInterval(funcToRun, ms);
+
+    }
+    /*   setImmediateInterval(buzzer, 2000);
+   */
+
+    function destroy() {
+      document.body.innerHTML = `
+      <p>DESTROYED!!!</p>`;
+    }
+    //SAVE THE REFERENCE OF YOUR TIME IN A VARIABLE IF YOU NEED TO STOP IT
+    const bombTimer = setTimeout(destroy, 5000);
+    console.log(bombTimer);
+    window.addEventListener('click', function () {
+      console.log('You clicked! You saved the world');
+      //How do I stop the timer from running
+      clearTimeout(bombTimer); //STOP THE TIMER FROM RUNNING
+    });
+
+    //CLEARING A TIMER/INTERVAL, you must SAVE the REFERENCE to that TIMER or INTERVAL
+    //CLEARING INTERVAL 
+    const poopInterval = setInterval(function () {
+      console.log('💩');
+      console.log('hehe')
+    }, 100);
+    //create a setTimeout to stop the interval after a certain time passes
+    setTimeout(function () {
+      clearInterval(poopInterval);
+    }, 3000);
+    //clearInterval(poopInterval); type this in the console to see results
+  </script>
 </body>
 
 </html>

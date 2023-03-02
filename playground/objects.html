@@ -7,9 +7,180 @@
   <title></title>
   <link rel="stylesheet" href="../base.css">
 </head>
+<h1>Objects</h1>
+<p>Everything in JS is an object</p>
+<p>Objects allow us to group together properties and values or keys and values</p>
+<p>Uses: Storing related data, storing functionality
+</p>
+<p>Important to note: That objects are used where the order of the properties does not matter</p>
+<p>Nested Objects are a thing!</p>
 
 <body>
+  <input type="text" name="first" value="cam">
+  <!--   you order script tags based on what is dependent on it
+ -->
+  <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+  <!-- when you type '_.' all the lodash values are available to you
+ -->
   <script>
+    const age = 100;
+    const wes = {
+      name: 'wes',
+      age, //age: age
+      'cool-dude': true,  //you can't have a variable with a dash but you can have a property with a dash
+      'really cool': false, //can also have spaces
+      '777': true, //string of 777 is ok
+      clothing: {
+        shirts: 10,
+        pants: 2,
+      },
+      sayHello(greeting = 'Hey') {
+        return `${greeting} ${this.name}`
+      },
+      //shorthand method
+      /*  sayHello: function (greeting = 'Hey') {
+         return `${greeting} ${this.name}`
+       } */
+      //arrow method, still a method but because its an arrow function as a property on an object then we don't have access to the 'this' keyword. Silly don't use 
+      sneeze: () => {
+        console.log('AHHHHHH COOOO!');
+      },
+    }; //leaving a trailing comma is good practice!!
+    //ADDING A PROPERTY AFTER THE OBJECT HAS BEEN CREATED
+    wes.job = 'Web Developer';
+    //OVERWRITE A PROPERTY: properties can be overwritten even with a const variable but the variable itself cannot be overwritten
+    wes.age = 50;
+    //YOU can FREEZE a value in an OBJECT, KEYWORD: IMMUTABLE 
+    //const wesFroze = Object.freeze(wes);
+
+
+
+    //Property left, colon :, value on the right
+    //OBJECT LITERAL SYNTAX 'const person = {}'
+    //Value of the property can be any type, can put the value as a variable
+    //If you run into the property being the same naming/spelling of the value, you can just write out the property name
+
+    console.log(wes);
+    //ACCESS PROPERTIES IN 2 WAYS
+    //DOT NOTATION i.e. person.job person.age person.spouse
+    //SQUARE BRACKETS: to access custom properties, sometimes you get data from another language or a server
+    console.log(wes.age);
+    console.log(wes['age']);
+    console.clear();
+    /*   const propertyToCheck = prompt('What do you want to check?');
+            console.log([propertyToCheck]);
+            console.log(wes[propertyToCheck]); */
+
+
+    //Optional chaining is a safe and concise way to perform access checks for nested object properties. 
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+
+    const nameInput = document.querySelector('[name="first"]');
+    const name = nameInput ? nameInput.value : '';
+    /* if (nameInput) {
+      const name = nameInput.value;
+      console.log(name);
+    } BAD PRACTICE because we scoped the const name*/
+    console.log(name);
+
+    //REMOVE PROPERTY FROM AN OBJECT USE THE KEYWORD DELETE
+    //Delete will return true or false if you console.log it
+    //console.log(delete wes.age);
+
+    //DIFFERENCE BETWEEN METHODS AND FUNCTIONS
+    //Methods is a function that lives inside of an object
+    //When you have a function that lives in a property in a object if is referred to as a method of that object.
+    //Also  a shorthand way of writing methods. Look at the object above
+
+    /*Object Reference vs Values*/
+    let name1 = 'wes';
+    let name2 = 'wes';
+
+    console.log(name1 === name2);
+    name1 = 'scott';
+    console.log(name1 === name2);
+    //update name1 to be name 2
+    name1 = name2;
+    console.log(name1 === name2);
+    name2 = name1;
+    name2 = 'westopher';
+
+    //When you are comparing objects, it is done by REFERENCE to the object itself, not the value inside of it
+    const person1 = {
+      first: 'wes',
+      last: 'bos',
+      clothing: {
+        shirts: 10,
+        pants: 2,
+      },
+    };
+    const person2 = {
+      first: 'cameroni',
+      last: 'bos',
+    }; //3:21 time on video
+    //returns false person1 === person2
+
+    /* 1. When comparing values the triple equals ['===']: checks the type and value
+       2. When you set one string variable to be another, the value is copied from one to another
+       3. When OBJECTS and ARRAYS are copied by reference, same as MAPS and SETS
+       4. This only goes one level deep, when you have objects/arrays inside an object you run into the same problem like number three 
+    */
+    //We created a variable 'person3' that references 'person1' or points to the original variable instead of making a copy of it
+    /* const person3 = person1;
+    person3.first = 'Larry';
+    console.log(person3.first);
+    console.log(person1.first); */
+
+    /* WAYS TO COPY AN OBJECT
+    1. VIA SPREAD: '...' three dot operator, used for taking every single item in an object and spreading into a new object
+    2.Less popular method: Object.assign();
+    */
+    //1 
+    const person3 = { ...person1 }; //shallow copies, only 1 level deep. 
+    //Deep clone of all the properties, One method is the utility library like lodash
+    person3.first = 'cameron';
+    //2
+    //const person4 = Object.assign({}, person2);
+    //With LODASH/UNPKG
+    const person5 = _.cloneDeep(person1);
+    person5.clothing.shirts = 100;
+
+
+    //SPREAD OPERATOR IS GOOD FOR MERGING THINGS
+    const meatInventory = {
+      bacon: 2,
+      sausage: 3,
+      oysters: 10,
+    };
+
+    const veggieInventory = {
+      lettuce: 5,
+      tomatoes: 3,
+      oysters: 15,
+
+    };
+    //The order of the spread matters, the values will be overwritten based on its order 
+
+    const inventory = {
+      ...meatInventory,
+      ...veggieInventory,
+    };
+
+    //PASSING IN VIA REFERENCE VS COPY, ALSO APPLIES TO FUNCTIONS
+    function doStuff(data) {
+      data = 'something else';
+      console.log(data);
+    };//only passes in the value of name1 and doesn't actually reference to the external variable
+    doStuff(name1);
+
+    function doStuff2(data) {
+      data.tomatoes = 10000000000000;
+      console.log(data);
+    };//IF you pass in an object or an array into a function and modify that object|array the external object|array will be updated
+    //NOT the case for boolean, numbers, and strings 
+    //TO AVOID BUGS, you pass the OBJECT|ARRAY as a copy using one of the references that we've done
+    doStuff2(inventory);
+
 
   </script>
 </body>
