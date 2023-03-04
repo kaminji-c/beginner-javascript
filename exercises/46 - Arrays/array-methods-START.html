@@ -129,20 +129,56 @@
 
     //7:05
 
-
     // Make a copy of the toppings array with slice()
+    const toppingsCopy = toppings.slice(0);
+    console.log(toppingsCopy);
     // Make a copy of the toppings array with a spread
+    const toppingsCopy2 = [...toppings];
     // take out items 3 to 5 of your new toppings array with splice()
+    toppingsCopy.splice(3, 5);
+    console.log(toppingsCopy);
     // find the index of Avocado with indexOf() / lastIndexOf()
-    // Check if hot sauce is in the toppings with includes()
-    // add it if it's not
-    // flip those toppings around with reverse()
+    const avoIndex = toppings.indexOf('Avocado');
+    console.log(avoIndex);
+    //indexOf() works with any type
+    const wes = { name: 'wes' };
+    const people = [{ name: 'scott' }, wes];
+    console.log(people.indexOf(wes));
 
+    // Check if hot sauce is in the toppings with includes()
+    const isInToppings = toppings.includes('Hot Sauce');
+    console.log(isInToppings);
+    // add it if it's not
+    if (!isInToppings) {
+      toppings.push('Hot Sauce');
+    }
+    console.log(toppings);
+    // flip those toppings around with reverse() -mutable method
+    //toppings.reverse();
+    //console.log(toppings);
+    const toppingsReversed = [...toppings].reverse(); //immutable 
+    console.log(toppingsReversed);
     /*
-      Callback Methods
+      Callback Methods - 
     */
 
     // find the first rating that talks about a burger with find()
+    //argument of find() is going to be a function that returns true or false when it finds the items it wants
+    function findBurgRating(singleFeedback) {
+      return (singleFeedback.comment.includes('burg'));
+      /* console.log(singleFeedback);
+    return true; */ //will only return the first instance of something and then it stops
+    }
+    //6:30
+    const findBurgRating = function (singleFeedback) {
+      return (singleFeedback.comment.includes('burg'));
+    }
+
+    //same as below but passing a function instead of an inline argument
+    const burgRating = feedback.find(findBurgRating); //every single comment is returned
+    /*  const burgRating = feedback.find(rating =>
+       rating.comment.includes('burg')); */
+    console.log(burgRating);
     // find all ratings that are above 2 with filter()
     // find all ratings that talk about a burger with filter()
     // Remove the one star rating however you like!
