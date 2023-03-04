@@ -12,14 +12,26 @@
 
 <body>
   <script>
-    const toppings = ['Mushrooms ', 'Tomatoes', 'Eggs', 'Chili', 'Lettuce', 'Avocado', 'Chiles', 'Bacon', 'Pickles', 'Onions', 'Cheese'];
+    const toppings = [
+      'Mushrooms ',
+      'Tomatoes',
+      'Eggs',
+      'Chili',
+      'Lettuce',
+      'Avocado',
+      'Chiles',
+      'Bacon',
+      'Pickles',
+      'Onions',
+      'Cheese',
+    ];
 
     const buns = ['egg', 'wonder', 'brioche'];
 
     const meats = {
       beyond: 10,
       beef: 5,
-      pork: 7
+      pork: 7,
     };
 
     const prices = {
@@ -38,7 +50,7 @@
       { comment: 'Ambiance needs work', rating: 3 },
       { comment: 'I DONT LIKE BURGERS', rating: 1 },
     ];
-    //1:50
+    // 1:50
 
     /*
       Static Methods - Utility methods, called with Array.from()
@@ -48,14 +60,15 @@
     console.log(Array.of('wes', 'kait'));
     console.log(Array.of(...'wes'));
 
-    //Array.from (used often): CREATES an array, given an ITERABLE(most likely going to be an object with a LENGTH on it), takes a secondary called a map argument
-    console.log(Array.from({ length: 10 }));//returns an array with 10 empty spots
+    // Array.from (used often): CREATES an array, given an ITERABLE(most likely going to be an object with a LENGTH on it), takes a secondary called a map argument
+    console.log(Array.from({ length: 10 })); // returns an array with 10 empty spots
 
     // Make a function that creates a range from x to y with Array.from();
     function createRange(start, end) {
-      const range = Array.from({ length: end - start + 1 }, function (_item, index) {
-        return index + start;
-      });
+      const range = Array.from(
+        { length: end - start + 1 },
+        (_item, index) => index + start
+      );
       return range;
     }
     const myRange = createRange(3, 7);
@@ -63,17 +76,17 @@
     // Check if the last array you created is really an array with Array.isArray();
     console.log(Array.isArray(myRange));
 
-    //Static Methods that are on the OBJECTS but return ARRAYS below
+    // Static Methods that are on the OBJECTS but return ARRAYS below
     // Take the meats object and make three arrays with Object.entries(), Object.keys, Object.values()
-    console.log(Object.entries(meats)); //gives both keys/values
-    console.log(Object.keys(meats)); //array of object keys
-    console.log(Object.values(meats)); //array of all the values
+    console.log(Object.entries(meats)); // gives both keys/values
+    console.log(Object.keys(meats)); // array of object keys
+    console.log(Object.values(meats)); // array of all the values
 
-    //^^^ common way to use this is using forEach method ^^^
-    Object.values(meats).forEach(qty => {
+    // ^^^ common way to use this is using forEach method ^^^
+    Object.values(meats).forEach((qty) => {
       console.log(qty);
     });
-    Object.keys(meats).forEach(type => {
+    Object.keys(meats).forEach((type) => {
       console.log(type);
     });
     /*   Object.entries(meats).forEach(entry => {
@@ -82,11 +95,10 @@
         const [key, value] = entry; //destructuring
         console.log(key, value);
       }); */
-    //One step further, no need to destructure 
+    // One step further, no need to destructure
     Object.entries(meats).forEach(([key, value]) => {
       console.log(key, value);
     });
-
 
     /*
       Instance Methods, .prototype
@@ -96,9 +108,9 @@
     // .join(): turns an array into a string with a comma
 
     // We have a string "hot dogs,hamburgers,sausages,corn" - use split() to turn it into a array
-    const foodString = "hot dogs, hamburgers, sausages, corn";
-    console.log(foodString.split(',')); //splits based on the ',' character
-    console.log('cameroni macaroni'.split('')); //split things on nothing, similar to spreading
+    const foodString = 'hot dogs, hamburgers, sausages, corn';
+    console.log(foodString.split(',')); // splits based on the ',' character
+    console.log('cameroni macaroni'.split('')); // split things on nothing, similar to spreading
 
     // take the last item off toppings with pop() - removes the last item (mutable method)
     const lastItem = toppings.pop();
@@ -115,19 +127,19 @@
     console.log(toppings);
 
     // Do the last four,but immutable (with spreads and new variables)
-    let newToppings = toppings.slice(0, toppings.length - 1); // pop()
-    console.log(newToppings); //using the let variable to override it
+    const newToppings = toppings.slice(0, toppings.length - 1); // pop()
+    console.log(newToppings); // using the let variable to override it
 
     newtoppings = [...newToppings, toppings[toppings.length - 1]];
     console.log(newtoppings); // push(), we took it out with pop() but we didn't store it anywhere so we referenced it with                 toppings[toppings.length - 1]
 
-    let newToppings2 = toppings.slice(1, toppings.length - 1); // shift()
+    const newToppings2 = toppings.slice(1, toppings.length - 1); // shift()
     console.log(newToppings2);
 
     newtoppings2 = [...newToppings, toppings[toppings.length - 1]];
     console.log(newtoppings2); // unshift
 
-    //7:05
+    // 7:05
 
     // Make a copy of the toppings array with slice()
     const toppingsCopy = toppings.slice(0);
@@ -140,7 +152,7 @@
     // find the index of Avocado with indexOf() / lastIndexOf()
     const avoIndex = toppings.indexOf('Avocado');
     console.log(avoIndex);
-    //indexOf() works with any type
+    // indexOf() works with any type
     const wes = { name: 'wes' };
     const people = [{ name: 'scott' }, wes];
     console.log(people.indexOf(wes));
@@ -154,30 +166,37 @@
     }
     console.log(toppings);
     // flip those toppings around with reverse() -mutable method
-    //toppings.reverse();
-    //console.log(toppings);
-    const toppingsReversed = [...toppings].reverse(); //immutable 
+    // toppings.reverse();
+    // console.log(toppings);
+    const toppingsReversed = [...toppings].reverse(); // immutable
     console.log(toppingsReversed);
     /*
       Callback Methods - 
     */
 
     // find the first rating that talks about a burger with find()
-    //argument of find() is going to be a function that returns true or false when it finds the items it wants
-    function findBurgRating(singleFeedback) {
-      return (singleFeedback.comment.includes('burg'));
-      /* console.log(singleFeedback);
-    return true; */ //will only return the first instance of something and then it stops
-    }
-    //6:30
-    const findBurgRating = function (singleFeedback) {
-      return (singleFeedback.comment.includes('burg'));
-    }
+    // argument of find() is going to be a function that returns true or false when it finds the items it wants
+    /*  function findBurgRating(singleFeedback) {
+          return singleFeedback.comment.includes('burg');
+        } */
+    /* console.log(singleFeedback);
+      return true; */ // will only return the first instance of something and then it stops
 
-    //same as below but passing a function instead of an inline argument
-    const burgRating = feedback.find(findBurgRating); //every single comment is returned
+    // 6:30
+    /*     const findBurgRating = function (singleFeedback) {
+          return singleFeedback.comment.includes('burg');
+        };
+     */
+    /*     const findBurgRating = (singleFeedback) =>
+          singleFeedback.comment.includes('burg'); *
+
+      // 8:00 min mark
+    console.log(findBurgRating);
+
+    // same as below but passing a function instead of an inline argument
+    const burgRating = feedback.find(findBurgRating); // every single comment is returned
     /*  const burgRating = feedback.find(rating =>
-       rating.comment.includes('burg')); */
+         rating.comment.includes('burg')); */
     console.log(burgRating);
     // find all ratings that are above 2 with filter()
     // find all ratings that talk about a burger with filter()
@@ -192,7 +211,6 @@
     /*
       Looping Methods (next)
     */
-
   </script>
 </body>
 
