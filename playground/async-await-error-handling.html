@@ -32,6 +32,73 @@
       });
     }
 
+    //Four different ways for error handling with async await 
+    //1. **Try** **Catch**, does not break your javascript
+    /*  async function go() {
+      try {
+        const pizza = await makePizza(['pineapple']);
+        console.log(pizza);
+      } catch (err) {
+        console.log('Ohhhh no!!');
+        console.log(err);
+      }
+    } */
+
+    //2. Mix and Match, using await to get the data from the promise, .catch for error handling. Helpful when you want to handle the Error at the time that you Define the function
+    /*     function handleError(err) {
+          console.log('ohhh nooo');
+          console.log(err);
+        }
+        async function go() {
+          const pizza = await makePizza(['pineapple']).catch(handleError);
+          console.log(pizza);
+        } */
+
+    //Sometimes you want to Handle the Error when you Call the function
+    function handleError(err) {
+      console.log('ohhh nooo');
+      console.log(err);
+    }
+    //Important thing to note. When you mark a function ASYNC it will immediately return a Promise to you
+    //You can use .then and .catch on async functions
+    async function go() {
+      const pizza = await makePizza(['pineapple']);
+      console.log(pizza);
+      return pizza;
+    }
+
+    //Call the Error and add on the .catch to the function where we call it
+    /* go().then(result => {
+      console.log(result);
+    }).catch(handleError); */
+    //go().catch(handleError);
+
+    /*   async function goGo() {
+        const result = await go();
+      } */
+
+    //What WES uses most often (MIX and MATCH) for error handling catching errors at call time
+    //go().catch(handleError);
+
+    //3. Higher Order Function: A function that returns another function
+
+    //Define all your async functions and not worry about the error handling
+    //Then when it comes time to call those functions you have two options 
+    //1) Catch it at run time
+    //go().catch(handleError);
+
+    //WES uses this more often in NODE EXPRESS LAND
+    //2) Or make a safe function with a HOF
+    function makeSafe(fn, errorHandler) {
+      return function () {
+        fn().catch(errorHandler)
+      }
+    }
+
+    //go(); //unsafe
+    const safeGo = makeSafe(go, handleError);
+
+    safeGo();
   </script>
 </body>
 

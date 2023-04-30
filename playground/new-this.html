@@ -9,7 +9,96 @@
 </head>
 
 <body>
+  <button class="one">Button 1</button>
+  <button class="two">Button 2</button>
+  <!-- Foundation for Object Oriented Programming 
+- Everything in JS is an object, there are methods that work with it
+-->
+  <!-- Another popular one is Functional Programming -->
+  <script>
+    //**New** keyword
+    const myDate = new Date('August 11, 2025');
+    console.log(myDate);
+    console.dir(myDate);
+    console.log(myDate.getFullYear());
 
+    //array is not a type, it is a special type of object
+    const names = ['wes', 'kait']; // [] array literal syntax
+    const wes = { name: 'west' }; //{} object literal syntax
+    const span = document.createElement('span');
+
+    //the function that creates an OBJECT is called a CONSTRUCTOR
+    function Pizza(toppings = [], customer) {
+      console.log('Making a pizza');
+      //console.log(this); you can store information about it
+      //save the toppings that were passed in, to this instance of pizza
+      this.toppings = toppings;
+      this.customer = customer;
+      this.id = Math.floor(Math.random() * 16777215).toString(16);
+      this.slices = 10;
+      this.size = 'Medium'; //first checks for a property on the instance and if it doesn't exist it will look up on the prototype
+
+      //instead of putting a function on every instance we can put it on a prototype, this line of code is a function that is duplicated for each instance! 
+      /*   this.eat = function () {
+          if (this.slices > 0) {
+            this.slices = this.slices - 1;
+            console.log(`Chomp you now have ${this.slices} left`);
+            return this.slices
+          } else {
+            console.log(`Sorry! No more slices left`);
+          }
+        } */
+    }
+
+    Pizza.prototype.eat = function () {
+      if (this.slices > 0) {
+        this.slices = this.slices - 1;
+        console.log(`Chomp you now have ${this.slices} left`);
+        return this.slices
+      } else {
+        console.log(`Sorry! No more slices left`);
+      }
+    }
+
+    Pizza.prototype.describe = function () {
+      return `This ${this.size} pizza is for ${this.customer} with the the following toppings: ${this.toppings} and there are ${this.slices} slices left`;
+    }
+
+    //Pizza.prototype.size = 'Large';
+
+    //When you use the new keyword on a function, it creates a new instance object of that function
+    const pepperoniPizza = new Pizza(['pepperoni'], 'Wes Bos');
+    const canadianPizza = new Pizza(['pepperoni', 'mushrooms', 'onion'], 'Kait Bos');
+    console.log(pepperoniPizza);
+    console.log(pepperoniPizza.constructor); //will tell us what function made me
+    console.log(pepperoniPizza instanceof Pizza); //returns true
+
+    //**This** keyword, refers to the instance of an object that a function is bound
+
+    const button1 = document.querySelector('.one');
+    const button2 = document.querySelector('.two');
+
+  //the **this** keyword will equal to the button that was clicked
+  //**this** keyword is always scoped to a function
+  //**this** keyword and arrow functions, it will be equal to whatever the **this** keyword was at a higher level function, if no higher function, it will be equal to the window
+
+  //using an arrow function because it will rely on the this keyword in the function
+  //when you create a new function it will change the value of **this**
+  //doesn't happen that often because the use of event / event.target
+    /*   function tellMeAboutTheButton() {
+        console.log('outside', this);
+        //previously function (){ } in place of arrow function
+        setTimeout(() => {
+          console.log('inside', this);
+          this.textContent = 'You Clicked Me';
+        }, 1000);
+      }
+  
+      button1.addEventListener('click', tellMeAboutTheButton);
+      button2.addEventListener('click', tellMeAboutTheButton);
+    */
+
+  </script>
 </body>
 
 </html>

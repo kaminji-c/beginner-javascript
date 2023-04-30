@@ -10,17 +10,92 @@
 
 <body>
   <script>
+    //These loops aren't as popular as the array methods but they have their place in the language
     const numbers = [2, 34, 3, 23, 42, 3, 1, 65, 364, 5, 645, 6];
 
-    const name = 'Wes Bos';
+    const name = 'Wes Bos 😊👪👨‍👩‍👦‍👦';
 
-    // For
+    const wes = {
+      name: 'wes',
+      age: '100',
+      cool: 'true',
+      last: 'bos',
+    }
+    // For 
+    //Flexible in incrementing the ways we want, usually used to loop over numbers
+    // Syntax: for (initialization; condition; afterthought)
+    //   statement
+    /*  for (let i = 100; i <= 120; i += 2) {
+       console.log(i);
+     } */
+
+    /*   for (let i = 0; i < numbers.length; i++) {
+        console.log(numbers[i]);
+      } Old way of doing loops, Way easier to use a forEach, map, or reduce*/
 
     // For of
+    //used for looping over iterable ], so something with a length(array/string)
+    //Why is this better? 1. Can handle emojis 2. If you need to SEQUENCE PROMISES a bunch of data meaning "you have to do one after another" the for loop will allow you to "await" inside of it
+    for (const letter of name) {
+      console.log(letter);
+    }
+    //looping, downside is that a forEach gives us an index, for of gives raw values
+    for (const number of numbers) {
+      console.log(number);
+    }
 
-    // For in
+    // For in - used for looping over keys of an object
+    //Object.entries, Object.keys, Object.values are better approaches
+    for (const prop in wes) {
+      console.log(prop);
+    }
 
-    // While Loop
+    const baseHumanStats = {
+      feet: 2,
+      arms: 2,
+      eyes: 2,
+      head: 1,
+    }
+
+    function Human(name) {
+      this.name = name;
+    }
+    //One GOTCHA prototyping with for in loop
+    Human.prototype = baseHumanStats;
+    //Now this references the values from the prototype
+    //What is happening with the prototype? -> When you try to access a property it first checks on the object itself for a property on that. If it is not on there it will look it up the prototype chain
+    //If you need to grab the prototype methods and properties then use a for in loop to grob those
+    const wes2 = new Human('wes');
+
+    console.log(Object.entries(wes2));
+
+    //grabs everything from the prototype that it was made from
+    for (const prop in wes2) {
+      console.log(prop);
+    }
+
+
+    // While Loop - will take a condition and will run infinitely until the condition is false
+    //Need an EXIT CONDITION to set the while loop to false
+    let cool = true;
+    let i = 1;
+    //This will check the condition before the first run
+    while (cool === true) {
+      console.log('You are cool');
+      i++
+      if (i > 100) {
+        cool = false;
+      }
+    }
+    //Do While Loop - do will run first and then check the condition in the while loop
+    /* 
+        do {
+    
+        } while () {
+    
+        } */
+
+
   </script>
 </body>
 

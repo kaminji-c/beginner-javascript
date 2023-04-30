@@ -6,10 +6,118 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Bind Call and Apply!</title>
   <link rel="stylesheet" href="../base.css">
+  <style>
+    body {
+      margin: 0 auto;
+      padding: 30px;
+    }
+  </style>
 </head>
 
 <body>
+  <h2>Bind Call and Apply!</h2>
+  <p>Use when the this value is not what you hoped</p>
 
+  <ul class="wrapper">
+    <li>
+      <p>Bind, call, apply: will change the <u>scope</u> of (this) keyword is equal to inside of a function or a method
+      </p>
+    </li>
+    <li>
+      <p>The (this) keyword is defined where the function is being <u>called</u> and <b>not</b> where the function is
+        being
+        <u>defined</u>
+      </p>
+    </li>
+    <li>
+      <p>We can use the (.bind) keyword to change where the (this) keyword is <u>defined</u></p>
+      <p>Why is this useful? || Sometimes you might want to use a method of an object with some other information</p>
+    </li>
+    <li>
+      <p>You can use bind to prep a function that has arguments</p>
+    </li>
+    <li>
+      <p>Bind preloading with arguments that need to be called</p>
+    </li>
+  </ul>
+  <p>If you need to bind a function and call it later, use bind</p>
+  <p>If you need to bind a function and call it immediately, use call</p>
+
+
+  <script>
+    const person = {
+      name: 'cam cam',
+      sayHi() {
+        console.log(this); //returns person object
+        console.log(`hey ${this.name}`);
+        return `hey ${this.name}`;
+      },
+    }
+    //sayHi is a  method, when called they get the (this) value (left of the dot) and see what they are bound against
+
+    const jenna = { name: 'Jenna' };
+    //const sayHi = person.sayHi;
+    // running sayHi() in the console **this** is equal to the window why??? because there was nothing that the method was bound to on the left hand side
+
+    //const sayHi = person.sayHi.bind(person);
+    //create a function called sayHi, that when called that (this) keyword will equal whatever I pass in the bind()
+
+    const sayHi = person.sayHi.bind({ name: 'Harry' });
+    //const sayHi = person.sayHi.bind(jenna);
+    //binding a function, bind is a method, (change the *this* keyword to be equal to a different object
+
+    //query selector example
+    //const $ = document.querySelector;
+    //by calling bind against querySelector, we say when the $ function is run, use 'docuemnt' as 'this' value
+    //this doesn't call the function it, it returns a new function which you can then store in a variable 
+    const $ = document.querySelector.bind(document);
+    const lookFor = document.querySelectorAll.bind(document);
+
+    const wrapper = document.querySelector('.wrapper');
+    const p = wrapper.querySelector('p');
+    console.log(p);
+
+    console.log($('p')); //does not work because taken away the method that it was called against, therefore it is not bound to anything
+    console.log(lookFor('p'));
+
+    //bind prep a function
+    const bill = {
+      total: 1000,
+      calculate(taxRate) {
+        return this.total + (this.total * taxRate);
+      },
+      describe(mealType, drinkType, taxRate) {
+        console.log(`Your meal of ${mealType} with a drink of ${drinkType} was ${this.calculate(taxRate)}`)
+      }
+
+    }
+
+    const total = bill.calculate(0.13);
+    console.log(total);
+    //storing this calc function in an external variable 
+    //const calc = bill.calculate; //return NaN. not bound to anything
+    //const calc = bill.calculate.bind(bill); bind to the original 
+    //const calc = bill.calculate.bind({ total: 500 });
+    //console.log(calc(0.13));
+    //bind: preloading with arguments that need to be called
+    const calc = bill.calculate.bind({ total: 500 }, 0.06);
+    //why does this work? the first one will always be the *this* object, the additional ones will line up with the arguments that get passed
+    console.log(calc()); //.bind returns a function that then needs to be called by itself
+
+    //call and apply, work similar to bind but will call the functions for you
+    const total2 = bill.calculate.call({ total: 500 }, 0.06);
+    console.log(total2); //.call will do the same thing as bind but it will run the function for you
+
+    //you can pass ***null*** if you don't care what ***this*** is
+    const total3 = bill.calculate.apply({ total: 325 }, [0.60]);
+    console.log(total3);
+    //This function is almost identical to call(), except that call() accepts an argument list, while apply() accepts a single array of arguments — for example, func.apply(this, ['eat', 'bananas']) vs.func.call(this, 'eat', 'bananas').
+
+    const myMeal = bill.describe.call(bill, 'pizza', 'coke', 0.13);
+    console.log(myMeal);
+    const myMeal2 = bill.describe.apply(bill, ['pizza', 'coke', 0.13]);
+    console.log(myMeal2);
+  </script>
 </body>
 
 </html>

@@ -19,11 +19,11 @@
   font-size: 100px;
   font-family: sans-serif;
   border: 5px solid white;
-  transition: all .25s;
+  transition: all 0.25s;
   transform: translateX(-200%);
 }
 
-.slide.next+.slide {
+.slide.next + .slide {
   transform: translateX(200%);
 }
 
@@ -48,4 +48,4 @@
   gap: 2rem;
   justify-content: center;
   padding: 2rem;
-}
+}/*# sourceMappingURL=style.css.map */

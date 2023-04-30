@@ -128,7 +128,200 @@
     /*
       Looping Methods
     */
+    //Most common looping is lopping over an ARRAY
+    //using the .forEach Method, this function runs for every single items in it.
+    //Handy for when you wanna loop over some data and do something with each piece of data (called side effects)
+    //SIDE EFFECT is when you are inside of a function and you reach outside of that function to do something else
+    //forEach() does not return any values, if you store it in a variable it will return undefined
+    function logTopping(topping, index, originalArray) {
+      //console.log(topping, index, originalArray);
+      //log the topping
+      const nextTopping = originalArray[index + 1];
+      const prevTopping = originalArray[index - 1];
+      console.log(topping);
+      //log the previous topping if there is one
+      prevTopping ? console.log(prevTopping) : null;
+      //log the next topping if there is one
+      nextTopping ? console.log(nextTopping) : null;
+      //if its the last item in the array, say goodbye
+      index === originalArray.length - 1 ? console.log('Goodbye') : console.log('Getting the next topping');
 
+      //index === originalArray.length && console.log('Goodbye');
+    }
+    toppings.forEach(logTopping);
+    toppings.forEach(topping => console.log(topping));
+
+    //Map, Filter, Reduce
+    //MAPPING - like a machine that takes in data, performs an operation and spits it out on the other side
+    //Map will always produce the same length as it starts with
+
+    console.clear();
+
+    function addArms(face) {
+      return `👋 ${face} 👋 `;
+    }
+
+    const toys = faces.map(addArms);
+    console.log(toys);
+
+    function bosify(name) {
+      return `${name} Bos`;
+    }
+    //Strings are similar to arrays 'wes'[0] returns "w"
+    //Slice works like an array does on a string
+    function capitalize(word) {
+      return `${word[0].toUpperCase()}${word.slice(1)}`;
+    }
+
+    //You can chain maps, and put it on a single line for readability
+    const fullNames = ['wes', 'kait', 'poopy']
+      .map(capitalize)
+      .map(bosify);
+    /* const fullNames = ['wes', 'kait', 'poopy'].map(name => `${name} bos`); */
+    console.log(fullNames);
+
+    //Maps not mutable
+    const orderTotalsWithTax = orderTotals.map(total => total * 1.13);
+    console.log(orderTotalsWithTax);
+    console.log(orderTotals);
+
+    // function attachBody(face, body) {
+    //   return `
+    //       ${face}
+    //     ${body.repeat(3)}
+    //     ${Array(3).fill(body).join(' ')}
+    //   👇  ${body.repeat(2)} 👇
+    //     ${Array(2).fill(body).join('   ')}
+    //     ${Array(2).fill(body).join('   ')}
+    //     👢   👢
+    //     `
+    // }
+
+    // faces.map(face => attachBody(face, '🍟')).forEach(body => console.log(body));
+
+    //API comes back with a bunch of data and not in the format that you need it -> need to massage the data and then return the newly formatted data
+
+    //its ok to console log the map, but don't update the data with a map, that's what a forEach is for
+
+    const cleanPeople = people.map(function (person) {
+      console.log(person);
+      //get their bday and convert it to a JS date | the original array has the bday stored in a string
+      //timestamp
+      const birthday = new Date(person.birthday).getTime();
+      //now timestamp
+      const now = Date.now(); //static methods
+      //console.dir(birthday, now); can see all the methods that exist on a Date Object
+      const age = Math.floor((now - birthday) / 31536000000); //returns milliseconds, needs to be converted into years
+      console.log(age);
+
+      //figure out how old they are
+      //return their full name and bday in an object
+      return {
+        age,
+        name: `${person.names.first} ${person.names.last}`,
+      }
+    });
+    console.table(cleanPeople);
+
+    //filter() method works by looping over data amd return true or false, returns all the of items that match that you want (RETURNS AN ARRAY)
+
+    //find() will return only one item (RETURNS AN ITEM that you want)
+    /*     const over40 = cleanPeople.filter(function (person) {
+          if (person.age > 40) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+     */
+    //implicit arrow return
+    const over40 = cleanPeople.filter(person => person.age > 40);
+    console.table(over40);
+    //if there is ever a situation that there is no people in it then it will return an EMPTY ARRAY
+    console.log(over40);
+    //if you want to check 
+    if (over40.length) {
+      console.log('There are some people over 40');
+    }
+
+    //WHY? Write a function to find a specific ID that is hardcoded
+    //HIGH ORDER FUNCTION, a function that returns another function
+    function findById(id) {
+      return function isStudent(student) {
+        return student.id === id;
+      }
+    }
+
+
+    //MORE ADVANCE CONCEPT 
+    //CREATING A EVEN MORE FLEXIBLE FUNCTION: Allows you to access multiple properties of an object
+    //Take in a key and a value or a value and key on either side -> its gonna look in that object for whatever value you specified 
+    //This is why we use square brackets for and not the dot notation, because the property we are looking for is being passed in as a variable or an arg for this function
+    function findByProp(prop, propWeAreLookingFor) {
+      return function isStudent(student) {
+        return student[prop] === propWeAreLookingFor;
+      }
+    }
+
+    const student2 = students.find(findByProp('id', '565a'));
+    const student3 = students.find(findByProp('first_name', 'Micki'));
+    const student = students.find(findById('978f'));
+
+
+    //find(), always want to check if something got found, RETURNS an OBJECT
+    //const student = students.find(stud => stud.id === '565a');
+    console.log(student);//returns an object
+    console.log(student2);
+    console.log(student3);
+
+
+    //reduce() - takes in an array of data, will return to you a result or a single value
+    console.clear();
+
+    //Function works to add all the order totals together but has a SIDE EFFECT, it is a  call back method that relies on an external variable being made which also has to reach outside of itself to work
+    /*  let total = 0;
+     orderTotals.forEach(singleTotal => {
+       total = total + singleTotal;
+     });
+     console.log(total); */
+
+    //reduce() will loop over the array and in this case keep a running total of those numbers
+    //every single time you loop over an item in the array you have the OPTION to return a value and you can use it to accumulate those values
+
+    //USE CASES for reduce() 
+    //CASE #1: Total of all the things
+    function tallyNumbers(tally, currentTotal) {
+      console.log(`The current tally is ${tally} `);
+      console.log(`The current total is ${currentTotal}`);
+      console.log('----------------');
+      //return the current tally PLUS the amount of this order
+      return tally + currentTotal;
+    }
+
+    //IF you do not provide an initial accumulator value, it will take the first loop iteration, in this case the first two numbers
+    const allOrders = orderTotals.reduce(tallyNumbers, 0);
+    console.log(allOrders); //returns the total amount
+
+    //CASE 2: INSTANCES of all the things and total value of all the things
+    function inventoryReducer(totals, item) {
+      console.log(`Looping over ${item.type}`);
+      //increment type by 1
+      totals[item.type] = totals[item.type] + 1 || 1; //variable look up, ALL THE THINGS!!!
+      //totals.shirt = totals.shirt + 1 || 1; //Adding an OR to add 1 if shirts exist and, start 1
+      //same thing but conditional
+      /*    if (totals.shirt) {
+           totals.shirt++
+         } else totals.shirt = 1;
+    */
+      //return the totals, so the next loop can use it
+      return totals;
+    }
+    //Because we usually don't know what data/properties is passed we set the starting point with an EMPTY OBJECT
+    const inventoryCounts = inventory.reduce(inventoryReducer, {});
+    console.log(inventoryCounts);
+
+    const totalInventoryPrice = inventory.reduce((acc, item) => acc + item.price, 0);
+    console.log(totalInventoryPrice);
   </script>
 </body>
 
