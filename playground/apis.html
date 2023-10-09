@@ -9,7 +9,45 @@
 </head>
 
 <body>
+  <p class="user"></p>
   <script>
+    //API - Application Programming Interface 
+    //JSON Javascript Object Notation: good way to transport JS Objects from server to server or server to client
+    //JSON.parse(data); to access the data that is a string
+
+    //AJAX: fishing data from an API and displaying it on a page
+    //Stands for Async Javascript And XML (another way to receive data, not as common API)
+
+    //store URL in a variable 
+    //endpoint is a fancy word for the URL that you need to visit in order to get the data
+
+    const baseEndPoint = 'https://api.github.com';
+    const usersEndPoint = `${baseEndPoint}/users`;
+    const userEl = document.querySelector('.user');
+
+    async function displayUser(username) {
+      userEl.textContent = 'loading...'; //setting a loading state, spinner, fade it out 
+      const response = await fetch(`${usersEndPoint}/${username}`);
+      const data = await response.json();
+      console.log(data);
+      console.log(data.blog);
+      console.log(data.name);
+      console.log(data.location);
+      userEl.textContent = `${data.name} - ${data.blog}`;
+      //no need to JSON.parse here because .json() will do that for us
+      //console.log(wesPromise);
+      //fetch library: built into Javascript, and all browsers
+    }
+
+    //debuggingg APIs is hard, more difficult when we don't have a proper one set  up
+    function handleError(err) {
+      console.log('Oh no!!!');
+      console.log(err);
+      userEl.textContent = `Something went wrong: ${err}`
+    }
+
+    //displayUser('wesbos');
+    displayUser('stolinski').catch(handleError);
 
   </script>
 </body>
