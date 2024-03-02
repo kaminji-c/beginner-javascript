@@ -1,8 +1,10 @@
-//this lesson includes fetching data, caching data
-//because when we hit this API we need to provide it our base rate
+// this lesson includes fetching data, caching data
+// because when we hit this API we need to provide it our base rate
 const fromSelect = document.querySelector('[name="from_currency"]');
 const toSelect = document.querySelector('[name="to_currency"]');
-const endpoint = 'https//api.exchangeratesapi.io/latest';
+const endpoint = 'https://api.ratesapi.io/latest';
+const ratesByBase = {}; // going to store all the rates in it
+
 const currencies = {
   USD: 'United States Dollar',
   AUD: 'Australian Dollar',
@@ -38,45 +40,61 @@ const currencies = {
   EUR: 'Euro',
 };
 
-//populates currencies into html options
-function generateOptions(options){
-  //console.log(options);
-  //looping over an object: Object.entries, Object.values, Object.keys,
-  return Object.entries(options).map(([currencyCode, currencyName]) => {
-    return `<option value="${currencyCode}">
+// populates currencies into html options
+function generateOptions(options) {
+  // console.log(options);
+  // looping over an object: Object.entries, Object.values, Object.keys,
+  return Object.entries(options)
+    .map(
+      ([currencyCode, currencyName]) =>
+        `<option value="${currencyCode}">
     ${currencyCode} - ${currencyName}
     </option>`
-    //console.log(currencyCode, currencyName);
-  }).join(''); //.join turns it into a dump of HTML
+      // console.log(currencyCode, currencyName);
+    )
+    .join(''); // .join turns it into a dump of HTML
 }
-//API function fetch
-async function fetchRates(base = 'USD'){
+// API function fetch
+async function fetchRates(base = 'USD') {
   const res = await fetch(`${endpoint}?base=${base}`);
   const rates = await res.json();
   return rates;
- }
-
- //10:47
-
-const optionsHTML = generateOptions(currencies);
-//console.log(optionsHTML);
-//on page load we can populate the options
-fromSelect.innerHTML = optionsHTML;
-toSelect.innerHTML = optionsHTML;
-
-
-
-//best practice: not going into the UI too much without coding up the actual functionality 
-//if start UI before functionality, tie functionality to tightly to the actual UI
+}
 
 /* const myHeaders = new Headers();
-myHeaders.append("apikey", "yourapikey");
+myHeaders.append('apikey', '8r1rY7P68CzrqSeRSbcKURXniAc2whPT');
 const requestOptions = {
   method: 'GET',
   redirect: 'follow',
-  headers: myHeaders
+  headers: myHeaders,
 };
-fetch(`https://api.apilayer.com/exchangerates_data/latest?symbols={symbols}&base={base}`, requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));  */
+fetch(
+  `https://api.apilayer.com/exchangerates_data/latest?symbols={symbols}&base={base}`,
+  requestOptions
+)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log('error', error));
+ */
+// convert function
+async function convert(amount, from, to) {
+  // first check if we even have the rates to convert from that currency
+  if (!ratesByBase[from]) {
+    console.log(
+      `Oh no we don't have ${from} to convert ${to}. So lets it go get it`
+    );
+    const rates = await fetchRates(from);
+    console.log(rates);
+    // store them for next time
+    ratesByBase[from] = rates;
+  }
+}
+
+const optionsHTML = generateOptions(currencies);
+// console.log(optionsHTML);
+// on page load we can populate the options
+fromSelect.innerHTML = optionsHTML;
+toSelect.innerHTML = optionsHTML;
+
+// best practice: not going into the UI too much without coding up the actual functionality
+// if start UI before functionality, tie functionality to tightly to the actual UI

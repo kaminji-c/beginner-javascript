@@ -9,7 +9,34 @@
 </head>
 
 <body>
+  <button>Load Currencies</button>
 
+  <!-- Instead of loading all your script tags, you generally only have one script tag, and that script tag is going to be your entry point into your js, and add type="module"-->
+  <script src="./scripts.js" type="module"></script>
+  <!--   This idea of sharing code between multiple files, a file is a module. If you want to surface functionality from one file to another file, then you must 1st must export it, then import it 
+  -  By exporting you are saying that this thing can be used by other JS modules 
+  -  Always do imports at the top of the file -->
+  <!-- 
+    There is TWO TYPES of EXPORTS... 1- NAME export, 2- DEFAULT export
+    - Can use a mix of the two, up to you
+    - Curly brackets means it's a NAMED export(can have unlimited amounts)
+        -- NAMED exports must know what they were exported as
+    - A module can have 1 DEFAULT export (MAIN DIFFERENCE: can name it anything you want and still access it)
+    -- BEST PRACTICE: When to use NAMED or DEFAULT
+        - If that module does ONE THING, and is the BASE THING that the module DOES: Then put it as the DEFAULT export
+        - If the module is used as a utility library then, just use multiple NAMED exports from it
+-->
+  <!-- Modules have their own scope
+  -  You can use variables that are defined inside of a module and they will not leak out or be available in any other file...HOWEVER
+  you can use them inside of that module
+  -->
+
+  <!-- You can rename MODULES as you IMPORT them
+ - using the as keyword, similar to destructuring 
+ - when you want to IMPORT EVERYTHING in a module you use a '*'
+ - ON DEMAND IMPORTS: when you want to import things ONLY when you NEED them
+
+  -->
 </body>
 
 </html>
