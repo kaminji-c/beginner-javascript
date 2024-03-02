@@ -97,6 +97,7 @@ Gallery.prototype.showImage = function(el){
 }
 
 //Use it on the page
+const gallery0 = new Gallery(document.querySelector('.gallery0'));
 const gallery1 = new Gallery(document.querySelector('.gallery1'));
 const gallery2 = new Gallery(document.querySelector('.gallery2'));
 
