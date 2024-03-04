@@ -34,15 +34,18 @@
       <div class="collection">
         <div class="seasonal-product">
           <div class="grid-item">
-            <img src="./images/featured/noah-black-KZ_ppEUmdvg-unsplash.jpg" alt="Photo 1" tabindex="0"
+            <img class="lazy-load" data-src="./images/featured/noah-black-KZ_ppEUmdvg-unsplash.jpg"
+              src=" ./images/featured/noah-black-KZ_ppEUmdvg-unsplash.jpg" alt="Photo 1" tabindex="0"
               title="This is the title of the image" data-description="This is the description of the image">
           </div>
           <div class="grid-item">
-            <img src="./images/featured/noah-black-CPytUjxWmzA-unsplash.jpg" alt="Photo 1" tabindex="0"
+            <img class="lazy-load" data-src="./images/featured/noah-black-CPytUjxWmzA-unsplash.jpg"
+              src="./images/featured/noah-black-CPytUjxWmzA-unsplash.jpg" alt="Photo 1" tabindex="0"
               title="This is the title of the image" data-description="This is the description of the image">
           </div>
           <div class="grid-item">
-            <img src="./images/featured/noah-black-1p3N5SHz0Hk-unsplash.jpg" alt="Photo 1" tabindex="0"
+            <img class="lazy-load" data-src="./images/featured/noah-black-1p3N5SHz0Hk-unsplash.jpg"
+              src="./images/featured/noah-black-1p3N5SHz0Hk-unsplash.jpg" alt="Photo 1" tabindex="0"
               title="This is the title of the image" data-description="This is the description of the image">
           </div>
           <div class="grid-item featured-text">
@@ -53,11 +56,13 @@
         </div>
         <div class="seasonal-product reverse sub-feat">
           <div class="grid-item">
-            <img src="./images/featured/judeus-samson-KMw3DHRbDdw-unsplash.jpg" alt="Photo 1" tabindex="0"
+            <img class="lazy-load" data-src="./images/featured/judeus-samson-KMw3DHRbDdw-unsplash.jpg""
+              src=" ./images/featured/judeus-samson-KMw3DHRbDdw-unsplash.jpg" alt="Photo 1" tabindex="0"
               title="This is the title of the image" data-description="This is the description of the image">
           </div>
           <div class="grid-item">
-            <img src="./images/featured/judeus-samson-3p5mLsvE3aI-unsplash.jpg" alt="Photo 1" tabindex="0"
+            <img class="lazy-load" data-src="./images/featured/judeus-samson-3p5mLsvE3aI-unsplash.jpg"
+              src=" ./images/featured/judeus-samson-3p5mLsvE3aI-unsplash.jpg" alt="Photo 1" tabindex="0"
               title="This is the title of the image" data-description="This is the description of the image">
           </div>
           <div class="featured-text">
@@ -179,6 +184,30 @@
   </div>
 
   <script src="./gallery-prototype.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var lazyloadImages = document.querySelectorAll(".lazy-load");
+
+      var observer = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var lazyImage = entry.target;
+            lazyImage.src = lazyImage.getAttribute("data-src");
+            lazyImage.onload = function () {
+              lazyImage.classList.add("loaded");
+            };
+            lazyImage.classList.remove("lazy-load");
+            observer.unobserve(lazyImage);
+          }
+        });
+      });
+
+      lazyloadImages.forEach(function (image) {
+        observer.observe(image);
+      });
+    });
+
+  </script>
 </body>
 
 </html>
