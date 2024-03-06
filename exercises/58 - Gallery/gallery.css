@@ -29,6 +29,7 @@ header {
 
 .brand p {
   color: var(--white);
+  font-weight: 600;
 }
 
 .notify {
@@ -41,6 +42,13 @@ h1 {
   font-family: Exo, sans-serif;
   letter-spacing: 1px;
   line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-family: Exo, sans-serif;
+  letter-spacing: 1px;
+  line-height: 1;
 }
 
 .product-bar {
@@ -102,48 +110,62 @@ section.hero-container {
 
 .collection {
   display: grid;
-  grid-template-rows: 1fr 500px;
+  grid-template-rows: 1fr;
   justify-content: space-evenly;
+  grid-template-columns: 1fr;
+  box-sizing: border-box;
+}
+
+.seasonal-product,
+.sub-feature {
+  display: grid;
+  grid-template-rows: auto;
+  gap: 5px;
+  margin-bottom: 5px;
 }
 
 .seasonal-product {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-template-rows: 700px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
-.seasonal-product.reverse {
+.sub-feature {
+  grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+}
+
+.reverse {
   grid-auto-flow: dense;
   direction: rtl;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 }
 
 .grid-item {
+  display: grid;
   text-align: center;
-}
-
-.grid-item img {
-  max-width: 100%;
-}
-
-.seasonal-product img {
-  padding: 10px;
-  object-fit: cover;
   width: 100%;
+  gap: 0;
 }
 
-.seasonal-product img {
-  padding: 10px;
+.seasonal-product img,
+.sub-feature img {
   object-fit: cover;
   width: 100%;
   object-position: center;
+  display: block;
+  height: auto;
 }
 
-.seasonal-product.reverse img,
-.seasonal-product.reverse .featured-text {
-  max-height: 70%;
+.sub-feature img,
+.sub-feature .featured-text {
   object-position: 50% 35%;
 }
+
+.sub-feature .featured-text {
+  grid-column: 1/ span 2;
+}
+
+/* 
+.sub-feature {
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+} */
 
 .lazy-load {
   opacity: 0;
@@ -157,24 +179,21 @@ section.hero-container {
 .featured-text {
   text-align: center;
   color: var(--noir-black);
-  margin: 20px;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.featured-text h1,
+.featured-text h2,
 .featured-text p {
   color: var(--noir-black);
   text-shadow: 1px 1px 2px rgb(255, 255, 255);
+  margin: 10px;
 }
 
 a.anchor-link {
-  text-decoration: none;
   padding: 8px;
-  border-radius: 3px;
-  display: block;
   background-color: var(--transparent);
   color: var(--noir-black);
   width: 100%;
@@ -183,6 +202,7 @@ a.anchor-link {
   max-width: fit-content;
   width: 100%;
   margin: 0 auto;
+  text-decoration-color: var(--taupe);
 }
 
 /*******************
@@ -289,7 +309,64 @@ Product Galleries
   transform: translateY(0);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 600px) {
+  body {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.4;
+  }
+
+  .brand p {
+    font-size: 1rem;
+  }
+
+  .notify {
+    font-size: 14px;
+    margin: 10px;
+  }
+
+  nav {
+    font-size: 1rem;
+  }
+
+  .seasonal-product .featured-text {
+    grid-column: 1/ span 3;
+  }
+
+  .sub-feature .featured-text {
+    grid-column: -3 / span 2;
+  }
+
+  .featured-text {
+    font-size: 1rem;
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 0px 65px;
+  }
+
+  .featured-text h2 {
+    line-height: 1.3;
+    text-transform: capitalize;
+  }
+
+  a.anchor-link {
+    font-size: 1rem;
+  }
+
+  .reverse {
+    direction: ltr;
+  }
+
+  p.specs {
+    display: block;
+    word-break: break-word;
+  }
+}
+
+@media screen and (min-width: 768px) {
   body {
     font-size: 0.95rem;
   }
@@ -298,17 +375,75 @@ Product Galleries
     font-size: 1.8rem;
     line-height: 1.3;
   }
-}
 
-
-
-@media screen and (max-width: 576px) {
-  body {
-    font-size: 0.9rem;
+  .notify {
+    font-size: 16px;
+    margin: 10px;
   }
 
-  h1 {
-    font-size: 1.6rem;
-    line-height: 1.4;
+}
+
+@media screen and (min-width: 1024px) {
+  .collection {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 1fr;
+  }
+
+  .seasonal-product .featured-text {
+    grid-column: 4/ span 2;
+  }
+
+  .sub-feature .featured-text {
+    grid-column: 3 / span 2;
+
+  }
+
+  .reverse {
+    direction: ltr;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .collection {
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: space-evenly;
+  }
+
+  .seasonal-product {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+
+  .sub-feature {
+    grid-auto-flow: dense;
+    direction: rtl;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+
+  .grid-item {
+    text-align: center;
+  }
+
+  .grid-item img {
+    max-width: 100%;
+  }
+
+  .seasonal-product img {
+    padding: 10px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .seasonal-product img {
+    padding: 10px;
+    object-fit: cover;
+    width: 100%;
+    object-position: center;
+  }
+
+  .seasonal-product.reverse img,
+  .seasonal-product.reverse .featured-text {
+    max-height: 70%;
+    object-position: 50% 35%;
   }
 }
